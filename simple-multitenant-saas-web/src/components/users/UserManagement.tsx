@@ -104,10 +104,12 @@ const UserManagement: React.FC = () => {
     
     try {
       const response = await axios.get('/users');
-      if (response.data.success && response.data.data) {
+      if (response.data.success && Array.isArray(response.data.data)) {
         setUsers(response.data.data);
+      } else if (Array.isArray(response.data)) {
+        setUsers(response.data);
       } else {
-        throw new Error('Invalid API response format');
+        throw new Error('Invalid API response format - expected array');
       }
     } catch (err) {
       console.error('Failed to fetch users:', err);
@@ -160,7 +162,7 @@ const UserManagement: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       if (selectedUser) {
-        setUsers(prev => prev.map(user => 
+        setUsers(prev => (prev || []).map(user => 
           user.id === selectedUser.id 
             ? { ...user, ...formData }
             : user
@@ -173,7 +175,7 @@ const UserManagement: React.FC = () => {
           createdAt: new Date().toISOString(),
           loginCount: 0,
         };
-        setUsers(prev => [...prev, newUser]);
+        setUsers(prev => [...(prev || []), newUser]);
       }
       
       handleCloseDialog();
@@ -270,7 +272,7 @@ const UserManagement: React.FC = () => {
         )}
 
         {/* Loading State */}
-        {loading && users.length === 0 ? (
+        {loading && (users || []).length === 0 ? (
           <div className="space-y-4">
             {[1, 2, 3].map((item) => (
               <div key={item} className="glass-card animate-pulse">
@@ -287,7 +289,7 @@ const UserManagement: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {users.map((user) => (
+            {(users || []).map((user) => (
               <div key={user.id} className="glass-card group hover:scale-105 transition-all duration-300">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">
@@ -312,7 +314,7 @@ const UserManagement: React.FC = () => {
                       <PencilIcon className="h-4 w-4" />
                     </button>
                     <button
-                      onClick={() => setUsers(prev => prev.filter(u => u.id !== user.id))}
+                      onClick={() => setUsers(prev => (prev || []).filter(u => u.id !== user.id))}
                       className="p-2 text-gray-400 hover:text-error-400 hover:bg-error-500/20 rounded-lg transition-colors duration-200"
                     >
                       <TrashIcon className="h-4 w-4" />
