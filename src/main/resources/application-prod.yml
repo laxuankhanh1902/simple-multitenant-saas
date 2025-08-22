@@ -1,0 +1,55 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/saas_framework_prod}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 10
+      idle-timeout: 600000
+      connection-timeout: 30000
+      validation-timeout: 10000
+      max-lifetime: 3600000
+  
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        use_sql_comments: false
+        generate_statistics: false
+        jdbc:
+          batch_size: 50
+
+logging:
+  level:
+    io.conduktor.saas: INFO
+    org.springframework.security: WARN
+    org.springframework.web: WARN
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN
+  file:
+    name: /var/log/saas-framework/application.log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: never
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:prodSecretKey123456789012345678901234567890123456789012345678901234567890}
+    expiration: ${JWT_EXPIRATION:86400000}
+    refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
+  
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:https://app.conduktor.com,https://dashboard.conduktor.com}
+  
+  cache:
+    tenant-cache-size: ${CACHE_TENANT_SIZE:500}
+    user-cache-size: ${CACHE_USER_SIZE:5000}
+    token-cache-size: ${CACHE_TOKEN_SIZE:10000}

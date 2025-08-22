@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/saas_framework
+    username: postgres
+    password: postgres123
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 20000
+  
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update  # Will create tables automatically for development
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        use_sql_comments: true
+  
+  flyway:
+    enabled: false  # Disable Flyway in dev mode since we're using sample data
+  
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 2000ms
+
+logging:
+  level:
+    io.conduktor.saas: DEBUG
+    org.springframework.security: INFO
+    org.springframework.web: INFO
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+
+app:
+  jwt:
+    secret: devSecretKey123456789012345678901234567890123456789012345678901234567890
+  
+  cors:
+    allowed-origins: http://localhost:3000,http://localhost:3001,http://localhost:8080,http://localhost:8081

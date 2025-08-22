@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  
+  html, body, #root {
+    @apply bg-dark-950 text-gray-100 font-sans antialiased;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  * {
+    box-sizing: border-box;
+    @apply border-dark-700;
+  }
+}
+
+@layer components {
+  /* Custom scrollbar for dark theme */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(75 85 99) rgb(17 24 39);
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-dark-900 rounded;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-dark-600 rounded hover:bg-dark-500;
+  }
+  
+  /* Default scrollbar dark theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-900 rounded;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-600 rounded hover:bg-dark-500;
+  }
+  
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-dark-800/20 backdrop-blur-xl border border-dark-700/50;
+  }
+  
+  .glass-card {
+    @apply glass rounded-xl shadow-dark-lg p-6;
+  }
+  
+  /* Gradient text effects */
+  .gradient-text-primary {
+    @apply bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent;
+  }
+
+  .gradient-text-blue {
+    @apply bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent;
+  }
+  
+  .gradient-text-purple {
+    @apply bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent;
+  }
+  
+  .gradient-text-green {
+    @apply bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent;
+  }
+  
+  .gradient-text-orange {
+    @apply bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent;
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-500 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-dark-700 hover:bg-dark-600 text-gray-300 hover:text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 border border-dark-600 hover:border-dark-500;
+  }
+  
+  .btn-success {
+    @apply bg-success-600 hover:bg-success-500 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105;
+  }
+  
+  .btn-warning {
+    @apply bg-warning-600 hover:bg-warning-500 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105;
+  }
+  
+  .btn-error {
+    @apply bg-error-600 hover:bg-error-500 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105;
+  }
+  
+  /* Card styles */
+  .card {
+    @apply glass-card p-6 hover:shadow-dark-lg transition-all duration-300 hover:scale-[1.02];
+  }
+  
+  .card-header {
+    @apply border-b border-dark-700/50 pb-4 mb-6;
+  }
+  
+  /* Input styles */
+  .input-dark {
+    @apply bg-dark-800 border-dark-600 text-gray-100 placeholder-gray-400 focus:border-primary-500 focus:ring-primary-500 rounded-lg;
+  }
+  
+  /* Status badges */
+  .badge-primary {
+    @apply bg-primary-900/30 text-primary-400 border border-primary-700/50 px-2 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply bg-success-900/30 text-success-400 border border-success-700/50 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .badge-warning {
+    @apply bg-warning-900/30 text-warning-400 border border-warning-700/50 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .badge-error {
+    @apply bg-error-900/30 text-error-400 border border-error-700/50 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .badge-info {
+    @apply bg-info-900/30 text-info-400 border border-info-700/50 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  /* MUI Overrides for dark theme */
+  .MuiDataGrid-root {
+    @apply border-none bg-dark-800/50 text-gray-100;
+  }
+  
+  .MuiDataGrid-cell:focus,
+  .MuiDataGrid-cell:focus-within,
+  .MuiDataGrid-columnHeader:focus,
+  .MuiDataGrid-columnHeader:focus-within {
+    outline: none !important;
+  }
+  
+  .MuiDataGrid-columnHeaders {
+    @apply bg-dark-700/50 border-b border-dark-600;
+  }
+  
+  .MuiDataGrid-row {
+    @apply border-b border-dark-700/30;
+  }
+  
+  .MuiDataGrid-row:hover {
+    @apply bg-dark-700/30;
+  }
+}
